@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>OLX parser</title>
+  <style type="text/css">
+
+    #error, #incorrect-city, #no-goods {
+      visibility: hidden;
+    }
+
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script type="text/javascript">
+  function parse(){
+    var city = $("#city").val();
+    var thing = $("#thing").val();
+
+    $("#error").css("visibility", "hidden"); 
+    $("#incorrect-city").css("visibility", "hidden"); 
+    $("#no-goods").css("visibility", "hidden"); 
+    
+    if(city === "" || thing === "") {
+      $("#error").css("visibility", "visible"); 
+    }
+    else {
+      $("#error").css("visibility", "hidden"); 
+
+      var title, price, link;
+      
+      $(document).ready(function() {
+        $.get(
+          '/olx/olxreq/' + city + '/' + thing + '/',
+          function (response) {
+            console.log(response);
+
+            if (response.status === 404) {
+              $("#incorrect-city").css("visibility", "visible"); 
+              return;
+            }
+
+            if ($(response.page).find('div.emptynew').length != 0) {
+              $("#no-goods").css("visibility", "visible"); 
+              return;
+            }
+
+            $(response.page).find('td.offer').each(function() {
+                $(this).find('a.detailsLink').each(function() {
+                    link = $(this).attr('href'); 
+                    $(this).find('strong').each(function() {
+                      title = $(this).text();
+                    });
+                  });
+
+                $(this).find('div.space strong:last').each(function() {
+                    price  =$(this).text()
+                  });
+
+                $("#data").append("<a href=\"" + link + "\" target=\"_blank\">" + title + "</a>" + "<p>" + price + "</p>" + "<hr/>");
+              })
+            }
+          );
+        });
+    }
+  };
+  </script>
+</head>
+<body>
+
+  <input type="text" id="thing" placeholder="Thing"/>
+  <input type="text" id="city" placeholder="City"/>
+  <input type="button" value="Search" onClick="parse()"/>
+  <div id="error"><p>Please, enter thing AND city</p></div>
+  <div id="incorrect-city"><p>Incorrect city. Please, try again.</p></div>
+  <div id="no-goods"><p>No goods found.</p></div>
+  <div id="data"></div> 
+
+</body>
+</html>

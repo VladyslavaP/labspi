@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script type="text/javascript" src="/static/main.js"></script>
+</head>
+<body>
+	
+
+	<div class="col-md-6 col-md-offset-3">
+		<h1 class="col-md-offset-3">Calculator</h1>
+		<div class="row">
+
+
+		<div class="input-group col-md-5 col-md-offset-2">
+			<span class="input-group-addon">X:</span>
+			<input type="text" class="form-control" id="x">
+		</div>
+
+		<select id="op" class="btn-lg  col-md-offset-7">
+			<option selected value = '+'>+</option>
+			<option value = '-'>-</option>
+			<option value = '*'>*</option>
+			<option value = '/'>/</option>
+		</select>
+
+
+
+		<div class="input-group col-md-5 col-md-offset-2">
+			<span class="input-group-addon">Y:</span>
+			<input type="text" class="form-control" id="y">
+		</div>
+
+		<br/>
+		<button onclick="Submit()" class="btn btn-success btn-lg col-md-offset-4">
+			Calculate
+		</button>
+		<br>
+		<h3 id="result" class="col-md-offset-2"></h3> 
+	</div>
+
+	</div>	
+
+</body>
+</html>

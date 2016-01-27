@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="/static/css/user.css">
+	<script type="text/javascript" src="/static/js/admin.page.js"></script>
+
+</head>
+<body>
+
+	<nav class="navbar navbar-default" id="head">
+		<div class="container-fluid">
+			<button type="button" class="btn btn-primary navbar-btn navbar-right" onclick="logoutButton()">Logout</button>
+			<h4 class="navbar-text navbar-right" id="hello-text"></h4>
+		</div>
+	</nav>
+
+	<div class="container center">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+
+				<table class="table table-bordered" id="users-table">
+					<caption class="text-center">
+						<h2>List of users 
+							<button type="button" class="btn btn-primary btn-right" data-toggle="modal" data-target="#addModal">Add new</button>
+						</h2>
+					</caption>
+					<tr >
+						<th>Login</th>
+						<th>Full Name</th>
+						<th>E-mail</th>
+						<th>Delete</th>
+						<th>Edit</th>
+					</tr> 
+				</table>	
+
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Modal edit-->
+	<div class="modal fade " id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel"></h4>
+				</div>
+				<div class="modal-body" id="mod-content">
+
+					<table class="table borderless">
+						<tr>
+							<td>Full Name:</td>
+							<td><input type="text" name="fullname" id="edit-fullname" required/></td>
+						</tr> 
+
+						<tr>
+							<td>E-mail:</td>
+							<td><input type="email" name="email" id="edit-email" required/></td>
+						</tr>
+
+						<tr>
+							<td>Password:</td>
+							<td><input type="password" name="password" id="edit-password" required/></td>
+						</tr>
+					</table>	
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" onclick="confirmEdit()">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal add-->
+	<div class="modal fade " id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Add user</h4>
+				</div>
+				<div class="modal-body" id="mod-content">
+
+					<table class="table borderless">
+
+						<tr>
+							<td>User Name:</td>
+							<td><input type="text" name="username" id="add-username" value="" required/></td>
+						</tr> 
+
+						<tr>
+							<td>Full Name:</td>
+							<td><input type="text" name="fullname" id="add-fullname" value="" required/></td>
+						</tr> 
+
+						<tr>
+							<td>E-mail:</td>
+							<td><input type="email" name="email" id="add-email" value="" required/></td>
+						</tr>
+
+						<tr>
+							<td>Password:</td>
+							<td><input type="password" name="password" id="add-password" value="" required/></td>
+						</tr>
+					</table>	
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" onclick="addUserButton()">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal delete-->
+	<div class="modal fade " id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Delete user</h4>
+				</div>
+				<div class="modal-body" id="mod-content">
+					<p id="delete-text"></p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" onclick="confirmDelete()">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

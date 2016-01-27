@@ -1,0 +1,11 @@
+{
+  "name": "lb4",
+  "main": "app.js",
+  "dependencies": {
+    "express": "*"  
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "version": "1.0.0"
+}

@@ -1,0 +1,28 @@
+#head {
+	background-color: #59B2E0;
+}
+
+#head button {
+	margin-right: 10px;
+}
+
+#hello-text {
+	margin-right: 20px;
+	color: #000;
+}
+
+caption {
+	color: #000;
+}
+
+#mod-content p{
+	display: inline-block;
+}
+
+.borderless tbody tr td, .borderless tbody tr th, .borderless thead tr th {
+    border: none;
+}
+
+table input {
+	width: 300px;
+}

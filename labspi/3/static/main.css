@@ -1,0 +1,38 @@
+.chat-block {
+  width: 600px;
+  margin: 20px auto;
+  padding: 10px;
+  color: #0E829E;
+  font-family: "PT Sans", Verdana, Arial, sans-serif;
+  font-size: 13px;
+}
+
+.chat .messages{
+  height: 300px;
+  border: 1px solid #d4d4d4;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding: 5px;
+  color: #113D48;
+}
+
+.nick .user {
+  color: #29454C;
+  font-size: 17px;
+}
+
+.chat .message{
+  width: 70%;
+}
+
+.chat .panel{
+  margin-top: 8px;
+  word-wrap: break-word;
+  color: #29454C;
+}
+
+#message_text{
+  width: 60%;
+  display: inline-block;
+  margin-left: 8px;
+}

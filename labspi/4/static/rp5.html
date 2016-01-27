@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>OLX parser</title>
+  <style type="text/css">
+
+    #errors, #incorrect-data, #incorrect-city {
+      visibility: hidden;
+    }
+
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script type="text/javascript">
+  function parse(){
+    var my_date = $("#date").val();
+    var city = $("#city").val();
+    
+    var date = new Date(my_date);
+    var today = new Date();
+    var delta = date.getTime() - today.getTime();
+    var sixDaysInMS = 6*24*60*60*1000;
+    var oneDayInMS = 1*24*60*60*1000;
+
+    var neededDay = delta > 0 ? Math.ceil((delta / oneDayInMS) + 1) : 0;
+
+    console.log(date.getTime());
+    console.log(today.getTime());
+    
+    $("#errors").css("visibility", "hidden"); 
+    $("#incorrect-data").css("visibility", "hidden"); 
+    $("#incorrect-city").css("visibility", "hidden"); 
+    $("#info").empty();
+    $("#data").empty();
+    
+    if(city === "" || my_date === "") {
+      $("#errors").css("visibility", "visible"); 
+    } else if(  delta > sixDaysInMS  ||  delta < (- oneDayInMS) ) {
+      $("#incorrect-data").css("visibility", "visible"); 
+    }
+    else {
+
+      var temp, feelTemp, message;
+
+      var cityLink=""
+      
+      $(document).ready(function() {
+        $.get(
+          '/rp5/getcity/' + city + '/',
+          function(response) {
+
+            if ($(response.page).find('div#search-rez-container').length == 0) {
+              $("#incorrect-city").css("visibility", "visible"); 
+              return;
+            }
+
+            $(response.page).find('div#search-rez-container').each(function() {             
+      
+                $(this).find('a').each(function() {
+                    link = $(this).attr('href'); 
+
+                    $(this).find('td.rez-cell').each(function() {
+                        cityLink="";
+                        $(this).find('span.innerTextResult').each(function() {
+                          cityLink += $(this).text() + '|';
+                        });
+                        $("#data").append("<a class=\"city\" href=\"" + link + "\" target=\"_blank\">" + cityLink + "</a>" + "<hr/>");
+                    });
+                });
+
+                $("a.city").click(function(e) {
+                  e.preventDefault(); 
+                  var cityQuery= $("a.city").attr('href').substr(16);
+
+                  $.get(
+                    '/rp5/getweather/' + cityQuery,
+                    function(res) {
+                      $("#data").empty();
+
+                      var dayDivIndex = "#dayDiv" + neededDay;
+
+                      console.log(dayDivIndex);
+
+                      var dayDiv = $(res.page).find(dayDivIndex)[0];
+                      console.log(dayDiv);
+
+                      $('#info').append(dayDiv);
+
+                    }
+
+                  );    
+
+                });
+            })
+          }
+        );
+      });
+    }
+  };
+  </script>
+</head>
+<body>
+
+  <input type="date" id="date"/>
+  <input type="text" id="city" placeholder="City"/>
+  <input type="button" value="Search" onClick="parse()"/>
+  <div id="errors"><p>Please, enter data and city</p></div>
+  <div id="incorrect-data"><p>Incorrect data. Pleese, try again.</p></div>
+  <div id="incorrect-city"><p>Incorrect city. Please, try again.</p></div>
+  <div id="data"></div>
+  <div id="info">
+    <p id="temp-real"></p>
+    <p id="temp-feel"></p>
+    <p id="message"></p>
+  </div> 
+
+</body>
+</html>

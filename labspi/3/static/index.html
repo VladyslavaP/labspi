@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/static/main.css"/>
+    <title>Chat</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://localhost:8008/socket.io/socket.io.js"></script>
+    <script src="/static/main.js"></script>
+<body>
+
+<div class="login">
+    <h1>Please, login</h1>
+    <input type="text" id="name" placeholder="Username"/>
+    <input type="text" id="password" placeholder="Password"/>
+    <button type="button" id="login_btn">Login</button>
+    <p id="error"></p>
+</div>   
+
+
+<div class="chat-block">
+
+    <h1>My chat</h1>
+
+    <div class="chat">
+        <div class="messages" id="messages"></div>
+
+        <div class="panel">
+            <span class="nick"></span> <input type="text" name="message_text" id="message_text">
+            <button type="button" id="message_btn">Send</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

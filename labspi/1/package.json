@@ -1,0 +1,13 @@
+{
+  "name": "lb1",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "lodash": "*",
+    "express": "*"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "version": "1.0.0"
+}
